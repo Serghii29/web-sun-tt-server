@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Article, PrismaClient } from "@prisma/client";
+import { Article, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -7,12 +7,12 @@ const prisma = new PrismaClient();
 export const createArticle = async (article: Article): Promise<Article> => {
   try {
     const createdArticle = await prisma.article.create({
-      data: article
+      data: article,
     });
 
     return createdArticle;
   } catch (error: any) {
-    throw new Error(error.message)
+    throw new Error(error.message);
   }
 };
 
@@ -21,14 +21,17 @@ export const getAllArticles = async (): Promise<Article[] | undefined> => {
   try {
     const articles = await prisma.article.findMany();
 
-    return articles
+    return articles;
   } catch (error: any) {
-    throw new Error(error.message)
+    throw new Error(error.message);
   }
-}
+};
 
 // Update article
-export const updateArticle = async(article: Article, id: number): Promise<Article | undefined> => {
+export const updateArticle = async (
+  article: Article,
+  id: number,
+): Promise<Article | undefined> => {
   try {
     const updatedArticle = await prisma.article.update({
       where: { id },
@@ -39,19 +42,21 @@ export const updateArticle = async(article: Article, id: number): Promise<Articl
       return updatedArticle;
     }
   } catch (error: any) {
-    throw new Error(error.message)
+    throw new Error(error.message);
   }
-}
+};
 
 //Delete article
-export const deleteArticle = async(id: number): Promise<Article | undefined> => {
+export const deleteArticle = async (
+  id: number,
+): Promise<Article | undefined> => {
   try {
     const deletedArticle = await prisma.article.delete({
-      where: { id }
+      where: { id },
     });
 
     return deletedArticle;
   } catch (error: any) {
-    throw new Error(error.message)
+    throw new Error(error.message);
   }
-}
+};

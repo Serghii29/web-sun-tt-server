@@ -4,8 +4,8 @@ import router from './routes/articleRoutes.js';
 
 const app = express();
 
-app.use(bodyParser.json())
-app.use('/', router)
+app.use(bodyParser.json());
+app.use('/', router);
 
 const port = 5555;
 
