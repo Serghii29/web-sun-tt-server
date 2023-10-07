@@ -15,11 +15,11 @@ model Article {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  caregory String
-  author String
-  title String
-  text String
-  time String
+  category String?
+  author String?
+  title String?
+  text String?
+  time String?
 
   @@map("article")
 }
