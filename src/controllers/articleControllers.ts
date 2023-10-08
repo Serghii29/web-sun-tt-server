@@ -9,7 +9,6 @@ export const createArticle = async (article: Article): Promise<Article> => {
     return await prisma.article.create({
       data: article,
     });
-
   } catch (error: any) {
     throw new Error(error.message);
   }

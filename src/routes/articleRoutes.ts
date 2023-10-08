@@ -29,7 +29,7 @@ articleRoutes.post('/articles', async (req, res) => {
 
     res.status(201).json(createdArticle);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).send('Server error');
   }
 });
@@ -85,7 +85,7 @@ articleRoutes.delete('/articles/:id', async (req, res) => {
     if (!admin) {
       return res.status(401).json({ message: 'Invalid token' });
     }
-    
+
     const deletedArticle = await deleteArticle(+id);
 
     res.status(204).json(deletedArticle);

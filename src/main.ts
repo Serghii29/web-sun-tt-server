@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(cookieParser());
 app.use('/', articleRoutes);
-app.use('/', adminRoutes)
+app.use('/', adminRoutes);
 
 const port = 5555;
 

@@ -3,7 +3,7 @@ import { loginAdmin, registerAdmin } from '../controllers/adminController.js';
 
 const adminRoutes = Router();
 
-//Register admin 
+//Register admin
 adminRoutes.post('/register', async (req, res) => {
   try {
     const user = req.body;

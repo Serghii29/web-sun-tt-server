@@ -2,7 +2,6 @@
 import { Admin, PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 
-
 const prisma = new PrismaClient();
 
 const secretKey = 'hi09ifwenkdjnvwsnv';
@@ -13,7 +12,10 @@ const registerAdmin = async (admin: Admin): Promise<Admin> => {
   });
 };
 
-const loginAdmin = async (name: string, password: string): Promise<string | null> => {
+const loginAdmin = async (
+  name: string,
+  password: string,
+): Promise<string | null> => {
   const user = await prisma.admin.findFirst({
     where: {
       name,
@@ -43,4 +45,3 @@ const verifyToken = (token: string): Admin | null => {
 };
 
 export { registerAdmin, loginAdmin, verifyToken };
-
