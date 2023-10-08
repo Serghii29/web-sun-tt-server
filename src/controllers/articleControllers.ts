@@ -25,6 +25,21 @@ export const getAllArticles = async (): Promise<Article[] | undefined> => {
   }
 };
 
+export const getArticlesByPage = async (page: number, pageSize: number = 6): Promise<Article[] | undefined> => {
+  try {
+    const offset = (page - 1) * pageSize;
+
+    const articles = await prisma.article.findMany({
+      take: pageSize,
+      skip: offset,
+      orderBy: { id: 'desc' },
+    });
+    return articles;
+  } catch (error) {
+    throw new Error('Error retrieving articles by page');
+  }
+}
+
 // Update article
 export const updateArticle = async (
   article: Article,

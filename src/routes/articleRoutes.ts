@@ -4,6 +4,7 @@ import {
   createArticle,
   deleteArticle,
   getAllArticles,
+  getArticlesByPage,
   updateArticle,
 } from '../controllers/articleControllers.js';
 
@@ -44,6 +45,18 @@ articleRoutes.get('/articles', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
+articleRoutes.get('/articles/:page', async (req, res) => {
+  const page = parseInt(req.params.page);
+
+  try {
+    const articles = await getArticlesByPage(page);
+    res.json(articles);
+  } catch (error) {
+    res.status(500).send('Server error');
+  }
+});
+
 
 // Update article
 articleRoutes.put('/articles/:id', async (req, res) => {
