@@ -10,6 +10,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Admin {
+  id Int @default(autoincrement()) @id
+  createdAt DateTime @default(now())
+
+  name String
+  password String
+  role String
+
+  @@map("admin")
+}
+
 model Article {
   id Int @default(autoincrement()) @id
   createdAt DateTime @default(now())

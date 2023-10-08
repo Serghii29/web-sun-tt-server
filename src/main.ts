@@ -1,11 +1,17 @@
 import express from 'express';
+import cors from 'cors';
 import bodyParser from 'body-parser';
-import router from './routes/articleRoutes.js';
+import cookieParser from 'cookie-parser';
+import articleRoutes from './routes/articleRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 const app = express();
 
 app.use(bodyParser.json());
-app.use('/', router);
+app.use(cors());
+app.use(cookieParser());
+app.use('/', articleRoutes);
+app.use('/', adminRoutes)
 
 const port = 5555;
 
