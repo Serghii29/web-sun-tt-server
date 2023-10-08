@@ -6,11 +6,9 @@ const prisma = new PrismaClient();
 // Create article
 export const createArticle = async (article: Article): Promise<Article> => {
   try {
-    const createdArticle = await prisma.article.create({
+    return await prisma.article.create({
       data: article,
     });
-
-    return createdArticle;
   } catch (error: any) {
     throw new Error(error.message);
   }

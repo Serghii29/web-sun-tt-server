@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { verifyToken } from '../controllers/adminController.js';
 import {
   createArticle,
   deleteArticle,
@@ -6,23 +7,35 @@ import {
   updateArticle,
 } from '../controllers/articleControllers.js';
 
-const router = Router();
+const articleRoutes = Router();
 
 // Create article
-router.post('/articles', async (req, res) => {
-  const article = req.body;
-
+articleRoutes.post('/articles', async (req, res) => {
   try {
+    const article = req.body;
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).json({ message: 'Token not provided' });
+    }
+
+    const admin = verifyToken(token);
+
+    if (!admin) {
+      return res.status(401).json({ message: 'Invalid token' });
+    }
+
     const createdArticle = await createArticle(article);
 
     res.status(201).json(createdArticle);
   } catch (error) {
+    console.log(error);
     res.status(500).send('Server error');
   }
 });
 
 // Read articles
-router.get('/articles', async (req, res) => {
+articleRoutes.get('/articles', async (req, res) => {
   try {
     const articles = await getAllArticles();
 
@@ -33,11 +46,22 @@ router.get('/articles', async (req, res) => {
 });
 
 // Update article
-router.put('/articles/:id', async (req, res) => {
-  const { id } = req.params;
-  const article = req.body;
-
+articleRoutes.put('/articles/:id', async (req, res) => {
   try {
+    const { id } = req.params;
+    const article = req.body;
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).json({ message: 'Token not provided' });
+    }
+
+    const admin = verifyToken(token);
+
+    if (!admin) {
+      return res.status(401).json({ message: 'Invalid token' });
+    }
+
     const updatedarticle = await updateArticle(article, +id);
 
     res.status(201).json(updatedarticle);
@@ -47,10 +71,21 @@ router.put('/articles/:id', async (req, res) => {
 });
 
 // Delete articles
-router.delete('/articles/:id', async (req, res) => {
-  const { id } = req.params;
-
+articleRoutes.delete('/articles/:id', async (req, res) => {
   try {
+    const { id } = req.params;
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).json({ message: 'Token not provided' });
+    }
+
+    const admin = verifyToken(token);
+
+    if (!admin) {
+      return res.status(401).json({ message: 'Invalid token' });
+    }
+
     const deletedArticle = await deleteArticle(+id);
 
     res.status(204).json(deletedArticle);
@@ -59,4 +94,4 @@ router.delete('/articles/:id', async (req, res) => {
   }
 });
 
-export default router;
+export default articleRoutes;
