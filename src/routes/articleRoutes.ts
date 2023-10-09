@@ -80,7 +80,7 @@ articleRoutes.get('/latestnews', async (req, res) => {
   }
 });
 
-articleRoutes.get('/count',  async (req, res) => {
+articleRoutes.get('/count', async (req, res) => {
   try {
     const count = await getCountArticles();
 
@@ -88,7 +88,7 @@ articleRoutes.get('/count',  async (req, res) => {
   } catch (error) {
     res.status(500).send(error);
   }
-})
+});
 
 // Update article
 articleRoutes.put('/articles/:id', async (req, res) => {

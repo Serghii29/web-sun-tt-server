@@ -60,12 +60,12 @@ export const getLastestNews = async (): Promise<Article[] | undefined> => {
 export const getRandomArticle = async (): Promise<Article | null> => {
   try {
     const articlesCount = await prisma.article.count();
-    const randomId = Math.floor(Math.random() * articlesCount)
+    const randomId = Math.floor(Math.random() * articlesCount);
 
     const randomUniqueRow = await prisma.article.findFirst({
-      where: {id: randomId}
+      where: { id: randomId },
     });
-    
+
     return randomUniqueRow;
   } catch (error) {
     throw new Error('Error fetching random articles from the database');
@@ -77,11 +77,10 @@ export const getCountArticles = async () => {
     const productsCount = await prisma.article.count();
 
     return productsCount;
-
   } catch (error) {
-      throw new Error('Error the database');
-    }
-}
+    throw new Error('Error the database');
+  }
+};
 
 // Update article
 export const updateArticle = async (
