@@ -25,7 +25,10 @@ export const getAllArticles = async (): Promise<Article[] | undefined> => {
   }
 };
 
-export const getArticlesByPage = async (page: number, pageSize: number = 6): Promise<Article[] | undefined> => {
+export const getArticlesByPage = async (
+  page: number,
+  pageSize: number = 6,
+): Promise<Article[] | undefined> => {
   try {
     const offset = (page - 1) * pageSize;
 
@@ -34,11 +37,50 @@ export const getArticlesByPage = async (page: number, pageSize: number = 6): Pro
       skip: offset,
       orderBy: { id: 'desc' },
     });
+
     return articles;
   } catch (error) {
     throw new Error('Error retrieving articles by page');
   }
-}
+};
+
+export const getLastestNews = async (): Promise<Article[] | undefined> => {
+  try {
+    const articles = await prisma.article.findMany({
+      take: 3,
+      orderBy: { id: 'desc' },
+    });
+
+    return articles;
+  } catch (error) {
+    throw new Error('Error retrieving latest news');
+  }
+};
+
+export const getRandomArticle = async (): Promise<Article | null> => {
+  try {
+    const articlesCount = await prisma.article.count();
+    const randomId = Math.floor(Math.random() * articlesCount);
+
+    const randomUniqueRow = await prisma.article.findFirst({
+      where: { id: randomId },
+    });
+
+    return randomUniqueRow;
+  } catch (error) {
+    throw new Error('Error fetching random articles from the database');
+  }
+};
+
+export const getCountArticles = async () => {
+  try {
+    const productsCount = await prisma.article.count();
+
+    return productsCount;
+  } catch (error) {
+    throw new Error('Error the database');
+  }
+};
 
 // Update article
 export const updateArticle = async (
