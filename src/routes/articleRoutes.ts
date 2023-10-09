@@ -5,6 +5,9 @@ import {
   deleteArticle,
   getAllArticles,
   getArticlesByPage,
+  getCountArticles,
+  getLastestNews,
+  getRandomArticle,
   updateArticle,
 } from '../controllers/articleControllers.js';
 
@@ -57,6 +60,35 @@ articleRoutes.get('/articles/:page', async (req, res) => {
   }
 });
 
+articleRoutes.get('/random', async (req, res) => {
+  try {
+    const randomArticle = await getRandomArticle();
+
+    res.json(randomArticle);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+articleRoutes.get('/latestnews', async (req, res) => {
+  try {
+    const latestNews = await getLastestNews();
+
+    res.json(latestNews);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+articleRoutes.get('/count',  async (req, res) => {
+  try {
+    const count = await getCountArticles();
+
+    res.json(count);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+})
 
 // Update article
 articleRoutes.put('/articles/:id', async (req, res) => {
